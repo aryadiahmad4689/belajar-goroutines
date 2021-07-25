@@ -2,6 +2,7 @@ package belajar_gorotines
 
 import (
 	"fmt"
+	"strconv"
 	"testing"
 	"time"
 )
@@ -9,17 +10,18 @@ import (
 func TestCreateChanel(t *testing.T) {
 	chanel := make(chan string)
 
-	go func() {
-		time.Sleep(2 * time.Second)
-		chanel <- "ariadi ahmad"
-	}()
+	// go func() {
+	// 	chanel <- "halo ariadi ahmad"
+	// 	fmt.Println("halo  makasar")
+	// 	time.Sleep(2 * time.Second)
+	// }()
+
+	go giveMeResponse(chanel)
 
 	data := <-chanel
 
 	fmt.Println(data)
-	fmt.Println("halo indonesia")
 
-	close(chanel)
 }
 
 func giveMeResponse(chanel chan string) {
@@ -75,6 +77,20 @@ func TestBufferedChanel(t *testing.T) {
 
 	time.Sleep(2 * time.Second)
 	close(chanel)
+}
+
+func TestRangeChanel(t *testing.T) {
+	chanel := make(chan string)
+	go func() {
+		for i := 0; i < 100; i++ {
+			chanel <- strconv.Itoa(i)
+		}
+		defer close(chanel)
+	}()
+
+	for data := range chanel {
+		fmt.Println(data)
+	}
 }
 
 func TestSelectChanel(t *testing.T) {
