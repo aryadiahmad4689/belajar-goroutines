@@ -6,31 +6,31 @@ import (
 	"testing"
 )
 
-// func tulis(data []string, ch chan string) {
-// 	for _, dt := range data {
-// 		ch <- dt
-// 	}
-// 	close(ch)
-// }
+func tulis(data []string, ch chan string) {
+	for _, dt := range data {
+		ch <- dt
+	}
+	close(ch)
+}
 
-// func cetak(ch chan string) {
-// 	for result := range ch {
-// 		fmt.Println(result)
-// 	}
-// }
+func cetak(ch chan string) {
+	for result := range ch {
+		fmt.Println(result)
+	}
+}
 
-// func TestChanel(t *testing.T) {
-// 	var group sync.WaitGroup
+func TestChanel(t *testing.T) {
+	var group sync.WaitGroup
 
-// 	data := []string{"PHP", "Golang", "Javascript", "Python"}
-// 	ch := make(chan string, len(data))
-// 	group.Add(1)
-// 	go tulis(data, ch)
-// 	go cetak(ch)
-// 	group.Done()
+	data := []string{"PHP", "Golang", "Javascript", "Python"}
+	ch := make(chan string, len(data))
+	group.Add(1)
+	go tulis(data, ch)
+	go cetak(ch)
+	group.Done()
 
-// 	group.Wait()
-// }
+	group.Wait()
+}
 
 func sumData(data []int, ch chan int) {
 	go func() {
